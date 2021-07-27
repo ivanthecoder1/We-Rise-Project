@@ -19,14 +19,16 @@ events = [
     ]
 
 cs_events = [
-        {"URL":'https://www.codecademy.com/', "Description":"Code academy is an excellent website for learning how to code. It provides you with many exercises and challenges on a variety of computer languages"}
+        {"URL":'https://www.codecademy.com/', "Description":"Code academy is an excellent website for learning how to code. It provides you with many exercises and challenges on a variety of computer languages", "Name": "Ivan Zhang"}
     ]
 
 finance_events = [
         {"URL":"Second Day of Classes", "Description":"2019-08-21"},
     ]
 
-
+mental_events = [
+    {"URL":"Third Day of Classes", "Description":"2019-08-21"},
+]
 
 
 # # name of database
@@ -73,9 +75,10 @@ def programming():
     else:
         cs_link = request.form['cs_link']
         cs_description = request.form['cs_description']
+        cs_username = request.form['cs_username']
 
         cs_events = mongo.db.cs_events
-        cs_events.insert({"URL":cs_link, "Description": cs_description})
+        cs_events.insert({"URL":cs_link, "Description": cs_description, "Name": cs_username})
         cs_events = cs_events.find({})
         return render_template('programming.html', cs_events = cs_events)
 
@@ -88,18 +91,28 @@ def finance():
     else:
         fin_link = request.form['fin_link']
         fin_description = request.form['fin_description']
+        fin_username = request.form['fin_username']
 
         finance_events = mongo.db.finance_events
-        finance_events.insert({"URL":fin_link, "Description": fin_description})
+        finance_events.insert({"URL":fin_link, "Description": fin_description, "Name": fin_username})
         finance_events = finance_events.find({})
         return render_template('finance.html', finance_events = finance_events)
 
 
-
-@app.route('/mental-health')
-
+@app.route('/mental-health', methods = ['GET', 'POST'])
 def mental_health():
-    return render_template('mental-health.html', events = events)
+    if request.method == "GET":
+        mental_events = mongo.db.mental_events
+        mental_events = mental_events.find({})
+        return render_template('mental-health.html', mental_events = mental_events)
+    else:
+        men_link = request.form['men_link']
+        men_description = request.form['men_description']
+        men_username = request.form['men_username']
+        mental_events = mongo.db.mental_events
+        mental_events.insert({"URL":men_link, "Description": men_description, "Name": men_username})
+        mental_events = mental_events.find({})
+        return render_template('mental-health.html', mental_events = mental_events)
 
 # @app.route('/user-resources')
 

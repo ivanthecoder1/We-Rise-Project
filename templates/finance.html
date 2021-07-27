@@ -6,10 +6,11 @@
 -->
 <html>
 	<head>
-		<title>Dopetrope by HTML5 UP</title>
+		<title>WeRise: Finance</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="/static/css/main.css" />
+        <link rel="stylesheet" href="/static/css/main.css" />
+        <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Blue_computer_icon.svg/2048px-Blue_computer_icon.svg.png">
 	</head>
 	<body class="right-sidebar is-preload">
 		<div id="page-wrapper">
@@ -18,7 +19,7 @@
 				<section id="header">
 
 					<!-- Logo -->
-						<h1><a href="index">CS and Finance Education for POC</a></h1>
+						<h1><a href="index">WeRise</a></h1>
 
 					<!-- Nav -->
 						<nav id="nav">
@@ -106,10 +107,19 @@
 											<h3>Resources</h3>
 										</header>
 										<div class = "fin-event-list">
+                                            
                                             <ul>
                                             
                                                 {% for fin in finance_events %}
-                                                    <li>{{ fin.URL }} - {{ fin.Description }}</li>
+                                                    <a href= {{ fin.URL }} target = blank>
+                                                    <li> <b> {{ fin.URL }} </b>
+                                                        </a>
+                                                      <ul> <i> {{ fin.Description }}
+                                                          <br>
+                                                          Recommended by: <b> {{ fin.Name }} </b> 
+                                                        </i></ul>
+                                                    
+                                                    </li>
                                                 {% endfor %}
                                             </ul>
                     
@@ -128,6 +138,8 @@
                                             <!-- <input type = "text" name = "fin_description" value = ''> -->
                                             <textarea id="fin-description" name="fin_description" rows="4" cols="50">
                                             </textarea>
+                                            <label for="name">Your Name</label>
+                                            <input type = "text" name = "fin_username" value = ''>
                                             <br>
                                             <input type = "submit" value = "Submit">
                                         </form>

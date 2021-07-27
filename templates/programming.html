@@ -6,10 +6,11 @@
 -->
 <html>
 	<head>
-		<title>Dopetrope by HTML5 UP</title>
+		<title>WeRise: Programming</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="/static/css/main.css" />
+        <link rel="stylesheet" href="/static/css/main.css" />
+        <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Blue_computer_icon.svg/2048px-Blue_computer_icon.svg.png">
 	</head>
 	<body class="left-sidebar is-preload">
 		<div id="page-wrapper">
@@ -18,7 +19,7 @@
 				<section id="header">
 
 					<!-- Logo -->
-						<h1><a href="index">CS and Finance Education for POC</a></h1>
+						<h1><a href="index">WeRise</a></h1>
 
 					<!-- Nav -->
 						<nav id="nav">
@@ -68,7 +69,15 @@
                                             <ul>
                                             
                                                 {% for cs in cs_events %}
-                                                    <li>{{ cs.URL }} - {{ cs.Description }}</li>
+                                                    <a href= {{ cs.URL }} target = blank>
+                                                    <li> <b> {{ cs.URL }} </b>
+                                                        </a>
+                                                      <ul> <i> {{ cs.Description }} 
+                                                          <br>
+                                                          Recommended by: <b> {{ cs.Name }} </b>
+                                                      </i></ul>
+                                                      
+                                                    </li>
                                                 {% endfor %}
                                             </ul>
                     
@@ -87,6 +96,8 @@
                                             <!-- <input type = "text" name = "cs_description" value = ''> -->
                                             <textarea id="cs-description" name="cs_description" rows="4" cols="50">
                                             </textarea>
+                                            <label for="name">Your Name</label>
+                                            <input type = "text" name = "cs_username" value = ''>
                                             <br>
                                             <input type = "submit" value = "Submit">
                                         </form>
