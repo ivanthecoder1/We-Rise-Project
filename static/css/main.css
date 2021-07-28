@@ -2912,3 +2912,26 @@ input, select, textarea {
     word-wrap: break-word;
 }
 
+#login {
+    display: flex;
+    border-radius: 5px;
+    color: red;
+    text-decoration: none;
+	padding: 0.6em 1.2em 0.6em 1.2em;
+	-moz-transition: background-color .25s ease-in-out;
+	-webkit-transition: background-color .25s ease-in-out;
+	-ms-transition: background-color .25s ease-in-out;
+	transition: background-color .25s ease-in-out;
+	outline: 0;
+}
+
+#loginBox {
+    display: flex;
+    text-align: left;
+    
+}
+
+#logoutButton {
+    margin-left: -170px;
+    
+}

@@ -16,7 +16,26 @@
 		<div id="page-wrapper">
 
 			<!-- Header -->
-				<section id="header" style = "background-color: #eddcd2;">
+                <section id="header" style = "background-color: #eddcd2;">
+                    <div id = 'loginBox'>
+                        <!-- if user is logged in, then their username will appear on the website -->
+                        {% if session %}
+                        <h3> Signed in as: {{ session.username }} </h3>
+                        <div id = 'logoutButton'>
+                        <form method = "POST" action = "/logout">
+                        <br>
+                        <input type = "submit" value = "Logout">
+                        </form>
+                        </div>
+                        <!-- if user is not logged in, options to login or sign up will appear -->
+                        {%  else  %}
+                        <ul>
+                        <li id = login><a href="login">Login</a></li>
+                        <li id = login><a href="signup">Sign up</a></li>
+                        </ul>
+                        {% endif %}
+                    </div>
+            
 
 					<!-- Logo -->
 						<h1><a href="index"><img src = "/static/css/images/new.png"  width="200" height="200"></a></h1>
@@ -25,30 +44,12 @@
 						<nav id="nav">
 							<ul>
 								<li class="current"><a href="index">Home</a></li>
-								<li>
-									<!-- <a href="#">Dropdown</a>
-									<ul>
-										<li><a href="#">Lorem ipsum dolor</a></li>
-										<li><a href="#">Magna phasellus</a></li>
-										<li><a href="#">Etiam dolore nisl</a></li>
-										<li>
-											<a href="#">Phasellus consequat</a>
-											<ul>
-												<li><a href="#">Magna phasellus</a></li>
-												<li><a href="#">Etiam dolore nisl</a></li>
-												<li><a href="#">Veroeros feugiat</a></li>
-												<li><a href="#">Nisl sed aliquam</a></li>
-												<li><a href="#">Dolore adipiscing</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Veroeros feugiat</a></li>
-									</ul> -->
-								</li>
 								<li><a href="programming">Programming</a></li>
 								<li><a href="finance">Finance</a></li>
                                 <li><a href="mental-health">Mental Health</a></li>
                                 <li><a href="report">Report</a></li>
-							</ul>
+                            </ul>
+                            
 						</nav>
 
 					<!-- Banner -->

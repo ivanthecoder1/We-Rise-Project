@@ -51,7 +51,16 @@
                                 <li><a href="report">Report</a></li>
                                 <!-- <li><a href="user-resources">User resources</a></li> -->
 							</ul>
-						</nav>
+                        </nav>
+                        <br> 
+                        {% if session %}
+                        <h3> Signed in as: {{ session.username }} </h3>
+                        <form method = "POST" action = "/logout">
+                        <br>
+                        <input type = "submit" value = "Logout">
+                        </form>
+                        {%  else    %}
+                        {% endif %}
 
 				</section>
 
@@ -97,7 +106,7 @@
                                                         </a>
                                                       <ul> <i> {{ men.Description }}
                                                           <br>
-                                                          Recommended by: <b> {{ men.Name }} </b> 
+                                                          Recommended by: <b> {{ session.username }} </b> 
                                                         </i></ul>
                                                     
                                                     </li>
@@ -109,9 +118,11 @@
 									</section>
 									<section class="box">
 										<header>
-											<h3>Your resource recommendations</h3>
+                                            <h3>Your resource recommendations</h3>
+                                            <p>Must be a registered user to input your resource recommendation.</p>
 										</header>
                                         <!-- change to finance -->
+                                        {% if session %}
                                         <form method = "POST" action = "/mental-health">
                                             <label for="link">Your link</label>
                                             <input type = "url" name = "men_link" value = '' required>
@@ -119,10 +130,12 @@
                                             <!-- <input type = "text" name = "fin_description" value = ''> -->
                                             <textarea id="fin-description" name="men_description" rows="4" cols="50" required>
                                             </textarea>
-                                            <label for="name">Your Name</label>
-                                            <input type = "text" name = "men_username" value = '' required>
+                                            <!-- <label for="name">Your Name</label>
+                                            <input type = "text" name = "men_username" value = '' required> -->
                                             <br>
                                             <input type = "submit" value = "Submit">
+                                        {%  else    %}
+                                        {% endif %}
                                         </form>
 									</section>
 

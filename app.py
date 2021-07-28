@@ -5,6 +5,7 @@ from flask import render_template
 from flask import request
 from flask import redirect
 from flask_pymongo import PyMongo
+from flask import session
 import os 
 
 
@@ -12,32 +13,10 @@ import os
 app = Flask(__name__)
 
 
-events = [
-        {"event":"First Day of Classes", "date":"2019-08-21"},
-        {"event":"Winter Break", "date":"2019-12-20"},
-        {"event":"Finals Begin", "date":"2019-12-01"}
-    ]
-
-cs_events = [
-        {"URL":'https://www.codecademy.com/', "Description":"Code academy is an excellent website for learning how to code. It provides you with many exercises and challenges on a variety of computer languages", "Name": "Ivan Zhang"}
-    ]
-
-finance_events = [
-        {"URL":"Second Day of Classes", "Description":"2019-08-21"},
-    ]
-
-mental_events = [
-    {"URL":"Third Day of Classes", "Description":"2019-08-21"},
-]
-
-reported_users = [
-    {"User":"Troller13", "Subject": "Finance", "Explanation":"His link seems very sus. His description had some bad stuff, please delete"},
-]
-
-
 # # name of database
 app.config['MONGO_DBNAME'] = 'edu-project'
 
+app.secret_key = os.getenv('SECRET_KEY')
 uri = os.getenv('PASSWORD')
 
 # # URI of database
@@ -47,45 +26,32 @@ mongo = PyMongo(app)
 
 # -- Routes section --
 # INDEX
-
 @app.route('/')
 @app.route('/index')
-
 def index():
-    return render_template('index.html', events = events)
+    return render_template('index.html')
 
-
-# CONNECT TO DB, ADD DATA
-
-@app.route('/add')
-def add():
-    # connect to the database
-    cs_events = mongo.db.cs_events
-
-    # insert new data
-    cs_events.insert({"URL":"First Day of Classes", "Description":"2019-08-21"})
-
-    # return a message to the user
-    return "cs event added"
-
-# where we add user recommendations to our cs resource link
-# bug: the resources aren't saved. they disappear if we refresh
+# PROGRAMMING
+# sets up the methods which allow us to pull input from html
 @app.route('/programming', methods = ['GET', 'POST'])
 def programming():
     if request.method == "GET":
+        # link to our specific collection in database
         cs_events = mongo.db.cs_events
         cs_events = cs_events.find({})
         return render_template('programming.html', cs_events = cs_events)
     else:
+        # Takes user input from html
         cs_link = request.form['cs_link']
         cs_description = request.form['cs_description']
-        cs_username = request.form['cs_username']
 
+        # inserts that user's input into our collection 
         cs_events = mongo.db.cs_events
-        cs_events.insert({"URL":cs_link, "Description": cs_description, "Name": cs_username})
+        cs_events.insert({"URL":cs_link, "Description": cs_description})
         cs_events = cs_events.find({})
         return render_template('programming.html', cs_events = cs_events)
 
+# FINANCE
 @app.route('/finance', methods = ['GET', 'POST'])
 def finance():
     if request.method == "GET":
@@ -95,16 +61,18 @@ def finance():
     else:
         fin_link = request.form['fin_link']
         fin_description = request.form['fin_description']
-        fin_username = request.form['fin_username']
+        # fin_username = request.form['fin_username']
 
         finance_events = mongo.db.finance_events
-        finance_events.insert({"URL":fin_link, "Description": fin_description, "Name": fin_username})
+        finance_events.insert({"URL":fin_link, "Description": fin_description})
         finance_events = finance_events.find({})
         return render_template('finance.html', finance_events = finance_events)
 
 
+# MENTAL HEALTH
 @app.route('/mental-health', methods = ['GET', 'POST'])
 def mental_health():
+
     if request.method == "GET":
         mental_events = mongo.db.mental_events
         mental_events = mental_events.find({})
@@ -112,13 +80,13 @@ def mental_health():
     else:
         men_link = request.form['men_link']
         men_description = request.form['men_description']
-        men_username = request.form['men_username']
+        
         mental_events = mongo.db.mental_events
-        mental_events.insert({"URL":men_link, "Description": men_description, "Name": men_username})
+        mental_events.insert({"URL":men_link, "Description": men_description})
         mental_events = mental_events.find({})
         return render_template('mental-health.html', mental_events = mental_events)
 
-
+# REPORT
 @app.route('/report', methods = ['GET', 'POST'])
 def report():
     if request.method == "GET":
@@ -134,3 +102,64 @@ def report():
         reported_users.insert({"User":reported_user, "Subject": reported_subject, "Explanation": reported_explanation})
         reported_users = reported_users.find({})
         return render_template('report.html', reported_users = reported_users)
+
+# SIGN UP
+@app.route('/signup', methods = ['GET', 'POST'])
+def signup():
+    if request.method == "GET":
+        return render_template("signup.html")
+    else:
+        users = mongo.db.user #creates a users database in mongoDB
+        # stores form data into user dictionary
+        user = {
+            "username" : request.form['username'],
+            "password" : request.form['password']
+        }
+        # check if the username already exists in the database
+        existing_user = users.find_one({'username': user['username']})
+        # make condition to check if username already exists in mongo
+        if existing_user is None:
+            # adds user data into mongo
+            users.insert(user)
+            # tell the browser session who the user is
+            session["username"] = request.form['username']
+            return render_template('index.html')
+        else:
+            return "This username already exists!"
+
+# LOGOUT
+@app.route('/logout', methods = ['GET', 'POST'])
+def logout():
+    # remove session 
+    session.clear()
+    return render_template("index.html")
+
+# LOGIN
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    else:
+        users = mongo.db.user #creates a users database in mongoDB
+        # stores form data into user dictionary
+        user = {
+            "username" : request.form['username'],
+            "password" : request.form['password']
+        }
+        # check if the username already exists in the database
+        existing_user = users.find_one({'username': user['username']})
+        # make condition to check if username already exists in mongo
+        if existing_user:
+            # check if password matches
+            if user['password'] == existing_user['password']:
+                session['username'] = user['username']
+                return redirect('/')
+            else:
+                error = "Incorrect password"
+                return render_template('login.html', error = error)
+            # tell the browser session who the user is
+            session["username"] = request.form['username']
+            
+            return render_template('index.html')
+        else:
+            return redirect('/login')
