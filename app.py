@@ -30,6 +30,10 @@ mental_events = [
     {"URL":"Third Day of Classes", "Description":"2019-08-21"},
 ]
 
+reported_users = [
+    {"User":"Troller13", "Subject": "Finance", "Explanation":"His link seems very sus. His description had some bad stuff, please delete"},
+]
+
 
 # # name of database
 app.config['MONGO_DBNAME'] = 'edu-project'
@@ -114,8 +118,19 @@ def mental_health():
         mental_events = mental_events.find({})
         return render_template('mental-health.html', mental_events = mental_events)
 
-# @app.route('/user-resources')
 
-# def user_resources():
-#     return render_template('user-resources.html', events = events)
-
+@app.route('/report', methods = ['GET', 'POST'])
+def report():
+    if request.method == "GET":
+        reported_users = mongo.db.reported_users
+        reported_users = reported_users.find({})
+        return render_template('report.html', reported_users = reported_users)
+    else:
+        reported_user = request.form['reported_user']
+        reported_subject = request.form['reported_subject']
+        reported_explanation = request.form['reported_explanation']
+        
+        reported_users = mongo.db.reported_users
+        reported_users.insert({"User":reported_user, "Subject": reported_subject, "Explanation": reported_explanation})
+        reported_users = reported_users.find({})
+        return render_template('report.html', reported_users = reported_users)

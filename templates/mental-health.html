@@ -46,7 +46,9 @@
 								</li>
 								<li><a href="programming">Programming</a></li>
                                 <li><a href="finance">Finance</a></li>
+                                
                                 <li class="current"><a href="mental-health">Mental Health</a></li>
+                                <li><a href="report">Report</a></li>
                                 <!-- <li><a href="user-resources">User resources</a></li> -->
 							</ul>
 						</nav>
@@ -106,13 +108,13 @@
                                         <!-- change to finance -->
                                         <form method = "POST" action = "/mental-health">
                                             <label for="link">Your link</label>
-                                            <input type = "url" name = "men_link" value = ''>
+                                            <input type = "url" name = "men_link" value = '' required>
                                             <label for="description">Description: </label>
                                             <!-- <input type = "text" name = "fin_description" value = ''> -->
-                                            <textarea id="fin-description" name="men_description" rows="4" cols="50">
+                                            <textarea id="fin-description" name="men_description" rows="4" cols="50" required>
                                             </textarea>
                                             <label for="name">Your Name</label>
-                                            <input type = "text" name = "men_username" value = ''>
+                                            <input type = "text" name = "men_username" value = '' required>
                                             <br>
                                             <input type = "submit" value = "Submit">
                                         </form>

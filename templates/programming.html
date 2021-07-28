@@ -47,6 +47,8 @@
 								<li class="current"><a href="programming">Programming</a></li>
 								<li><a href="finance">Finance</a></li>
                                 <li><a href="mental-health">Mental Health</a></li>
+                                <li><a href="report">Report</a></li>
+                                
                                 <!-- <li><a href="user-resources">User resources</a></li> -->
 							</ul>
 						</nav>
@@ -91,18 +93,19 @@
                                         
                                         <form method = "POST" action = "/programming">
                                             <label for="link">Your link</label>
-                                            <input type = "url" name = "cs_link" value = ''>
+                                            <input type = "url" name = "cs_link" value = '' required>
                                             <label for="description">Description: </label>
                                             <!-- <input type = "text" name = "cs_description" value = ''> -->
                                             <textarea id="cs-description" name="cs_description" rows="4" cols="50">
                                             </textarea>
                                             <label for="name">Your Name</label>
-                                            <input type = "text" name = "cs_username" value = ''>
+                                            <input type = "text" name = "cs_username" value = '' required>
                                             <br>
                                             <input type = "submit" value = "Submit">
                                         </form>
 									
-									</section>
+                                    </section>
+                                    
 
 							</div>
 							<div class="col-8 col-12-medium imp-medium">
