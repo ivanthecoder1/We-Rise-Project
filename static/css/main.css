@@ -152,7 +152,7 @@ input, select, textarea {
 	}
 
 	a {
-		color: #d52349;
+		color: #cb997e;
 		text-decoration: underline;
 	}
 
@@ -2908,7 +2908,7 @@ input, select, textarea {
 
     }
     
-.fin-event-list, .cs-event-list {
+.fin-event-list, .cs-event-list, .men-event-list {
     word-wrap: break-word;
 }
 
