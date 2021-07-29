@@ -32,6 +32,7 @@
                                 <li><a href="mental-health">Mental Health</a></li>
                                 <li><a href="report">Report</a></li>
                             </ul>
+                            
                             <br>
                     <div id = 'loginBox'>
                         <!-- if user is logged in, then their username will appear on the website -->
@@ -45,9 +46,10 @@
                         </div>
                         <!-- if user is not logged in, options to login or sign up will appear -->
                         {%  else  %}
-                        <ul>
-                        <li id = login><a href="login">Login</a></li>
-                        <li id = login><a href="signup">Sign up</a></li>
+                        <ul style = "display: flex; justify-content: space-evenly;">
+                        <li id = login style = "white-space: nowrap;"><a href="login">Login</a></li>
+                        </li>
+                        <li id = login style = "white-space: nowrap;"><a href="signup">Sign up</a></li>
                         </ul>
                         {% endif %}
                     </div>
