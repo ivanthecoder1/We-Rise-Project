@@ -157,7 +157,7 @@ def login():
                 session['username'] = user['username']
                 return redirect('/')
             else:
-                error = "Incorrect password or username"
+                error = "Incorrect password"
                 return render_template('login.html', error = error)
             # tell the browser session who the user is
             session["username"] = request.form['username']
