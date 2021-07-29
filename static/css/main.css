@@ -2925,7 +2925,7 @@ input, select, textarea {
 	outline: 0;
 }
 
-#loginBox {
+/* #loginBox {
     display: flex;
     text-align: left;
     
@@ -2934,4 +2934,4 @@ input, select, textarea {
 #logoutButton {
     margin-left: -170px;
     
-}
+} */

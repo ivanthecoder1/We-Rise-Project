@@ -50,7 +50,17 @@
                                 <li class="current"><a href="report">Report</a></li>
                                 <!-- <li><a href="user-resources">User resources</a></li> -->
 							</ul>
-						</nav>
+                        </nav>
+                        <br> 
+                        <!-- If user is logged in then these text will appear -->
+                        {% if session %}
+                        <h3> Signed in as: {{ session.username }} </h3>
+                        <form method = "POST" action = "/logout">
+                        <br>
+                        <input type = "submit" value = "Logout">
+                        </form>
+                        {%  else    %}
+                        {% endif %}
 
 				</section>
 
