@@ -47,7 +47,7 @@ def programming():
 
         # inserts that user's input into our collection 
         cs_events = mongo.db.cs_events
-        cs_events.insert({"URL":cs_link, "Description": cs_description})
+        cs_events.insert({"URL":cs_link, "Description": cs_description, "Recommender": session["username"] })
         cs_events = cs_events.find({})
         return render_template('programming.html', cs_events = cs_events)
 
@@ -64,7 +64,7 @@ def finance():
         # fin_username = request.form['fin_username']
 
         finance_events = mongo.db.finance_events
-        finance_events.insert({"URL":fin_link, "Description": fin_description})
+        finance_events.insert({"URL":fin_link, "Description": fin_description, "Recommender": session["username"] })
         finance_events = finance_events.find({})
         return render_template('finance.html', finance_events = finance_events)
 
@@ -82,7 +82,7 @@ def mental_health():
         men_description = request.form['men_description']
         
         mental_events = mongo.db.mental_events
-        mental_events.insert({"URL":men_link, "Description": men_description})
+        mental_events.insert({"URL":men_link, "Description": men_description, "Recommender": session["username"] })
         mental_events = mental_events.find({})
         return render_template('mental-health.html', mental_events = mental_events)
 
@@ -125,7 +125,9 @@ def signup():
             session["username"] = request.form['username']
             return render_template('index.html')
         else:
-            return "This username already exists!"
+            error_signup = "This username already exists!"
+            return render_template('signup.html', error_signup = error_signup)
+            
 
 # LOGOUT
 @app.route('/logout', methods = ['GET', 'POST'])
@@ -155,7 +157,7 @@ def login():
                 session['username'] = user['username']
                 return redirect('/')
             else:
-                error = "Incorrect password"
+                error = "Incorrect password or username"
                 return render_template('login.html', error = error)
             # tell the browser session who the user is
             session["username"] = request.form['username']

@@ -67,13 +67,18 @@
                     <h2>Sign up</h2>
                     <br>
                     <form method="POST" action="/signup">
-                        <label for="name">Username:</label>
+                        <label for="name">Create a username:</label>
                         <input type="text" name="username" value="">
-                        <label for="name">Password: </label>
+                        <label for="name">Create a password: </label>
                         <input type="password" name="password" value="">
                         <br>
                         <input type="submit" value="Submit">
                     </form>
+                    <!-- if username already exists, returns an error on website -->
+                    {% if session.username == username %}
+                    <p>{{ error_signup }}</p>
+                    {%  else    %}
+                    {% endif %}
 
                 </section>
 

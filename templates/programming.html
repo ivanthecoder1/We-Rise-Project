@@ -87,7 +87,8 @@
                                                         </a>
                                                       <ul> <i> {{ cs.Description }} 
                                                           <br>
-                                                          Recommended by: <b> {{ session.username }} </b>
+                                                          <!-- bug here, username changes -->
+                                                          Recommended by: <b> {{ cs.Recommender }} </b>
                                                       </i></ul>
                                                       
                                                     </li>
