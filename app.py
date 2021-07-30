@@ -101,7 +101,9 @@ def report():
         reported_users = mongo.db.reported_users
         reported_users.insert({"User":reported_user, "Subject": reported_subject, "Explanation": reported_explanation})
         reported_users = reported_users.find({})
-        return render_template('report.html', reported_users = reported_users)
+        report_status = True 
+        thank_message = "Thank you for reporting, we will look into the issue, and try our best to delete their user and link"
+        return render_template('report.html', reported_users = reported_users, thank_message = thank_message, report_status = report_status)
 
 # SIGN UP
 @app.route('/signup', methods = ['GET', 'POST'])

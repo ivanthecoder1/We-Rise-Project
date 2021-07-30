@@ -76,7 +76,11 @@
                                         </header>
                                         <p>We will try our best to delete any inappropiate links and content that you have reported. 
                                             Please include their username, the subject/tab that they posted the explicit content in, and an explanation.</p>
-                                        <form method = "POST" action = "/report">
+                                        {% if report_status == True %}
+                                        <p>{{ thank_message }}</p>
+                                        {%  else    %}
+                                        {% endif %}
+                                            <form method = "POST" action = "/report">
                                             <label for="user">Their user:</label>
                                             <input type = "text" name = "reported_user" value = '' required>
                                             <label for="user">Subject:</label>
