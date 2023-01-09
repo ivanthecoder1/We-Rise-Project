@@ -1,5 +1,4 @@
 # We Rise 
-## Website Link: https://we-rise.herokuapp.com/ ## 
 **We Rise is a web application built during the FinTech Focus program by a team of two. This website was developed to provide educational resources about programming, mental health, and finance to POC.**
 
 **Technologies used: HTML, CSS, Bootstrap, Flask, Python, MongoDB, Heroku**
